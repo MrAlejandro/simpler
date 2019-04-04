@@ -5,7 +5,10 @@ class TestsController < Simpler::Controller
   end
 
   def create
+  end
 
+  def plain
+    render plain: "Plain text response"
   end
 
 end

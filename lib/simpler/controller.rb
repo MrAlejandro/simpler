@@ -39,15 +39,28 @@ module Simpler
     end
 
     def render_body
-      View.new(@request.env).render(binding)
+      render_type = @request.env['simpler.render_type']
+
+      case render_type
+      when :plain
+        @request.env['simpler.render_resource']
+      else
+        View.new(@request.env).render(binding)
+      end
     end
 
     def params
       @request.params
     end
 
-    def render(template)
-      @request.env['simpler.template'] = template
+    def render(resource)
+      if resource.is_a?(Hash)
+        render_type, render_resource = resource.first
+        @request.env['simpler.render_type'] = render_type
+        @request.env['simpler.render_resource'] = render_resource
+      else
+        @request.env['simpler.template'] = resource
+      end
     end
 
   end
