@@ -17,7 +17,7 @@ module Simpler
 
       set_default_headers
       send(action)
-      write_response
+      write_response if @response.successful?
 
       @response.finish
     end
@@ -61,6 +61,10 @@ module Simpler
       else
         @request.env['simpler.template'] = resource
       end
+    end
+
+    def status(status_code)
+      @response.status = status_code
     end
 
   end

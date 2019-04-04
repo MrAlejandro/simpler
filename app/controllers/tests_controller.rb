@@ -8,6 +8,7 @@ class TestsController < Simpler::Controller
   end
 
   def plain
+    status 201
     render plain: "Plain text response"
   end
 
