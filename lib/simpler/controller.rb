@@ -22,6 +22,10 @@ module Simpler
       @response.finish
     end
 
+    def not_found
+      status 404
+    end
+
     private
 
     def extract_name

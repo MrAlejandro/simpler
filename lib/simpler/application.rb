@@ -28,8 +28,14 @@ module Simpler
 
     def call(env)
       route = @router.route_for(env)
-      controller = route.controller.new(env)
-      action = route.action
+
+      begin
+        controller = route.controller.new(env)
+        action = route.action
+      rescue
+        controller = Simpler::Controller.new(env)
+        action = :not_found
+      end
 
       make_response(controller, action)
     end
