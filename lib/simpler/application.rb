@@ -27,13 +27,13 @@ module Simpler
     end
 
     def call(env)
-      route = @router.route_for(env)
+      route, params = @router.route_for(env)
 
       begin
-        controller = route.controller.new(env)
+        controller = route.controller.new(env, params)
         action = route.action
       rescue
-        controller = Simpler::Controller.new(env)
+        controller = Simpler::Controller.new(env, params)
         action = :not_found
       end
 

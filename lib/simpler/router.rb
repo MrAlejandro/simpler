@@ -19,7 +19,10 @@ module Simpler
       method = env['REQUEST_METHOD'].downcase.to_sym
       path = env['PATH_INFO']
 
-      @routes.find { |route| route.match?(method, path) }
+      route = @routes.find { |route| route.match?(method, path) }
+      params = route&.path_params(path) || {}
+
+      [route, params]
     end
 
     private
