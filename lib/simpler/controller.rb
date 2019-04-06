@@ -14,6 +14,7 @@ module Simpler
     end
 
     def make_response(action)
+      @request.env['simpler.request'] = @request
       @request.env['simpler.controller'] = self
       @request.env['simpler.action'] = action
 
@@ -76,7 +77,6 @@ module Simpler
     def params
       @request.params
     end
-
 
   end
 end
